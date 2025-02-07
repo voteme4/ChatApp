@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 
 import authRoutes from './routes/auth.routes.js';
+import userRoutes from './routes/user.routes.js';
 import messageRoutes from './routes/message.routes.js';
 //import conversationRoutes from './routes/conversation.routes.js';
 
@@ -22,6 +23,7 @@ app.use(express.json()); // middleware
 app.use(cookieParser()); // middleware
 
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/messages', messageRoutes);
 //app.use('/api/conversations', conversationRoutes);
 

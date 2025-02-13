@@ -1,6 +1,6 @@
 const Login = () => {
   return (
-    <div className='flex min-h-screen min-w-screen items-center justify-center'>
+    <div className='flex min-h-screen min-w-96 items-center justify-center'>
       <div className='h-3/5 w-3/5 p-8 bg-indigo-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10'>
         <h1 className='text-3xl font-semibold text-gray-100'>Login
           <span className='text-purple-400'> ChatApp

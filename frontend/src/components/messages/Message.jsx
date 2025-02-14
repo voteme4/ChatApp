@@ -1,16 +1,28 @@
-const Message = () => {
-  return (
-    <div className="chat chat-end">
+import useConversation from "../../zustand/useConversation";
+import { useAuthContext } from "../../context/AuthContext";
+import { extractTime } from "../../utils/extractTime";
+
+const Message = ({message}) => {
+    const { authUser } = useAuthContext();
+    const {selectedConversation} = useConversation();
+    const fromMe = message.senderId === authUser._id;
+    const chatClassName = fromMe ? "chat chat-end" : "chat chat-start";
+    const profilePic = fromMe ? authUser.profilePic : selectedConversation?.profilePic;
+    const chatBgColor = fromMe ? "bg-blue-500" : "";
+    const time = extractTime(message.createdAt);
+
+    return (
+    <div className={`${chatClassName}`}>
         <div className="chat-image avatar">
             <div className="w-10 rounded-full">
-                <img src="https://avatar.iran.liara.run/public?username=$420" alt = "avatar" />
+                <img src={profilePic} alt = "avatar" />
             </div>
         </div>
-        <div className="chat-bubble text-white bg-blue-500">
-            Erm... What the Sigma
+        <div className={`chat-bubble text-white ${chatBgColor}`}>
+            {message.content}
         </div>
         <div className="chat-footer opacity-50 text-sx flex gap-1 items-center">
-            5:57
+            {time}
         </div>
     </div>
   )

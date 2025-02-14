@@ -1,6 +1,5 @@
 import Conversation from '../models/conversation.model.js';
 import Message from '../models/message.model.js';
-import mongoose from 'mongoose';
 
 export const sendMessage = async (req, res) => {
 try {
@@ -11,6 +10,7 @@ try {
     let conversation = await Conversation.findOne({
         members: { $all: [senderId, receiverId] }
     })
+    
 
     if (!conversation) {
         conversation = await Conversation.create({
@@ -46,15 +46,16 @@ try {
 
     const conversation = await Conversation.findOne({ 
         members: { $all: [senderId, targetId] }
-    }).populate("messages") // populates with message object
+    }).populate("messages"); // populates with message object
 
     if (!conversation) {
-        return res.status(200).json({});
+        return res.status(200).json([]);
     }
 
     const messages = conversation.messages;
 
-    res.status(200).json(conversation.messages);
+    //console.log(messages)
+    res.status(200).json(messages);
 } catch (error) {
     console.log('Error in getMessages method of message.controller.js:', error.message);
     res.status(500).json({ error: 'Internal server error' });

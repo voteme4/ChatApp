@@ -1,15 +1,23 @@
+import { useEffect } from "react"
+import useConversation from "../../zustand/useConversation"
 import Header from "./Header"
 import MessageInput from "./MessageInput"
 import Messages from "./Messages"
 import { TiMessages } from 'react-icons/ti'
 
 const MessageContainer = () => {
-  const chatSelected = false;
+
+  const {selectedConversation, setSelectedConversation} = useConversation();
+
+  useEffect(() => {
+    return () => setSelectedConversation(null);
+  },[setSelectedConversation]);
+
   return (
     <div className='flex flex-col w-full'>
-        {!chatSelected ? <NoChatSelected /> : (
+        {!selectedConversation ? <NoChatSelected /> : (
         <>
-        <Header/>        
+        <Header name={selectedConversation.fullName}/>
         <Messages/>
         <MessageInput/>
         </>
